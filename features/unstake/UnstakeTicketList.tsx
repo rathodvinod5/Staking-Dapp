@@ -4,6 +4,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useQuery } from "@tanstack/react-query";
 import { formatLamports, shortenAddress } from "@/lib/solana/utils";
 import { formatDistanceToNow } from "date-fns";
+import { motion } from "framer-motion";
 
 type Ticket = {
   id: string;
@@ -57,9 +58,30 @@ export function UnstakeTicketList() {
           </div>
         ) : (
           <div className="relative overflow-auto h-[250px] pr-4">
-            <div className="space-y-4">
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1
+                  }
+                }
+              }}
+              initial="hidden"
+              animate="show"
+              className="space-y-4"
+            >
               {tickets?.map((ticket) => (
-                <div key={ticket.id} className="flex items-center justify-between p-4 rounded-lg bg-accent/30 border border-border/30">
+                <motion.div 
+                  key={ticket.id} 
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    show: { opacity: 1, y: 0 }
+                  }}
+                  whileHover={{ scale: 1.01, backgroundColor: "rgba(255,255,255,0.05)" }}
+                  className="flex items-center justify-between p-4 rounded-lg bg-accent/30 border border-border/30 transition-colors"
+                >
                   <div className="space-y-1">
                     <div className="font-mono font-medium">{formatLamports(ticket.amount)} SOL</div>
                     <div className="text-xs text-muted-foreground">
@@ -83,9 +105,9 @@ export function UnstakeTicketList() {
                       </div>
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         )}
       </div>
