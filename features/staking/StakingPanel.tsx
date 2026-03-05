@@ -5,6 +5,7 @@ import { useStaking } from "./useStaking";
 import { useUserStats } from "../dashboard/useStats";
 import { formatLamports } from "@/lib/solana/utils";
 import { Loader2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function StakingPanel() {
   const { deposit, unstake, isStaking, isUnstaking } = useStaking();
@@ -27,7 +28,12 @@ export function StakingPanel() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto rounded-2xl border border-border/50 bg-black/40 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.95, y: 10 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="w-full max-w-md mx-auto rounded-2xl border border-border/50 bg-black/40 backdrop-blur-xl shadow-2xl relative overflow-hidden group"
+    >
       {/* Decorative gradient orb */}
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors duration-700 pointer-events-none" />
 
@@ -40,23 +46,45 @@ export function StakingPanel() {
       
       <div className="p-6 pt-0">
         <div className="w-full">
-          <div className="inline-flex h-10 items-center justify-center rounded-md bg-accent/50 p-1 text-muted-foreground w-full mb-6">
+          <div className="relative inline-flex h-12 items-center justify-center rounded-lg bg-accent/50 p-1 text-muted-foreground w-full mb-6">
             <button 
                 onClick={() => setActiveTab("stake")}
-                className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 w-1/2 ${activeTab === 'stake' ? 'bg-primary text-primary-foreground shadow-sm' : ''}`}
+                className={`relative z-10 inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 w-1/2 ${activeTab === 'stake' ? 'text-primary-foreground' : 'hover:text-foreground'}`}
             >
-              Stake
+              {activeTab === "stake" && (
+                <motion.div
+                  layoutId="activeTabIndicator"
+                  className="absolute inset-0 bg-primary rounded-md shadow-sm"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+              <span className="relative z-20">Stake</span>
             </button>
             <button 
                 onClick={() => setActiveTab("unstake")}
-                className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 w-1/2 ${activeTab === 'unstake' ? 'bg-destructive text-destructive-foreground shadow-sm' : ''}`}
+                className={`relative z-10 inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 w-1/2 ${activeTab === 'unstake' ? 'text-destructive-foreground' : 'hover:text-foreground'}`}
             >
-              Unstake
+              {activeTab === "unstake" && (
+                <motion.div
+                  layoutId="activeTabIndicator"
+                  className="absolute inset-0 bg-destructive rounded-md shadow-sm"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+              <span className="relative z-20">Unstake</span>
             </button>
           </div>
           
-          {activeTab === "stake" ? (
-            <div className="space-y-4">
+          <AnimatePresence mode="wait">
+            {activeTab === "stake" ? (
+              <motion.div 
+                key="stake"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.2 }}
+                className="space-y-4"
+              >
               <div className="space-y-2 relative">
                 <label className="text-sm font-medium text-muted-foreground flex justify-between">
                   <span>Amount</span>
@@ -87,17 +115,26 @@ export function StakingPanel() {
                 </div>
               </div>
 
-              <button 
-                className={`inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 w-full py-6 text-lg font-bold shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed`}
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 w-full py-6 text-lg font-bold shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
                 onClick={handleStake}
                 disabled={isStaking || !stakeAmount || Number(stakeAmount) <= 0}
               >
                 {isStaking ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : null}
                 {isStaking ? "Staking..." : "Stake SOL"}
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           ) : (
-            <div className="space-y-4">
+            <motion.div 
+              key="unstake"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-4"
+            >
               <div className="space-y-2 relative">
                 <label className="text-sm font-medium text-muted-foreground flex justify-between">
                   <span>Amount</span>
@@ -122,18 +159,21 @@ export function StakingPanel() {
                  <p>Unstaking creates a ticket. You will receive SOL once the protocol admin processes the withdraw queue from the reserve.</p>
               </div>
 
-              <button 
-                className={`inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-destructive text-destructive-foreground hover:bg-destructive/90 w-full py-6 text-lg font-bold shadow-[0_0_20px_-5px_rgba(255,0,0,0.3)] transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed`}
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-destructive text-destructive-foreground hover:bg-destructive/90 w-full py-6 text-lg font-bold shadow-[0_0_20px_-5px_rgba(255,0,0,0.3)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}
                 onClick={handleUnstake}
                 disabled={isUnstaking || !unstakeAmount || Number(unstakeAmount) <= 0}
               >
                 {isUnstaking ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : null}
                 {isUnstaking ? "Creating Ticket..." : "Unstake to SOL"}
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           )}
+          </AnimatePresence>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

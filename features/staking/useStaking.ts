@@ -5,17 +5,19 @@ import { useProgram } from "@/lib/solana/ProgramProvider";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { parseAnchorError } from "@/lib/solana/utils";
+import { useToast } from "@/components/ui/ToastProvider";
 
 export function useStaking() {
   const { program } = useProgram();
   const { publicKey } = useWallet();
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const [isStaking, setIsStaking] = useState(false);
   const [isUnstaking, setIsUnstaking] = useState(false);
 
   const deposit = async (amountLamports: number) => {
     if (!program || !publicKey) {
-      window.alert("Please connect your wallet first.");
+      toast({ title: "Error", description: "Please connect your wallet first." });
       return;
     }
 
@@ -30,7 +32,10 @@ export function useStaking() {
       // Due to dummy IDL we'll just mock a 2 second delay as a successful tx
       await new Promise((res) => setTimeout(res, 2000));
       
-      window.alert(`Successfully deposited ${(amountLamports / 1e9).toFixed(2)} SOL`);
+      toast({ 
+        title: "Success", 
+        description: `Successfully deposited ${(amountLamports / 1e9).toFixed(2)} SOL` 
+      });
       
       // Invalidate queries to refresh dashboard data
       queryClient.invalidateQueries({ queryKey: ["protocol-stats"] });
@@ -38,7 +43,7 @@ export function useStaking() {
       
     } catch (err: any) {
       console.error(err);
-      window.alert("Staking Failed: " + parseAnchorError(err));
+      toast({ title: "Staking Failed", description: parseAnchorError(err) });
     } finally {
       setIsStaking(false);
     }
@@ -46,7 +51,7 @@ export function useStaking() {
 
   const unstake = async (amountLamports: number) => {
     if (!program || !publicKey) {
-      window.alert("Please connect your wallet first.");
+      toast({ title: "Error", description: "Please connect your wallet first." });
       return;
     }
 
@@ -58,7 +63,10 @@ export function useStaking() {
       // Mock contract unstake ticket creation
       await new Promise((res) => setTimeout(res, 2000));
       
-      window.alert("Unstake ticket created successfully! You will receive SOL once the admin processes the queue.");
+      toast({
+        title: "Unstaked Successfully",
+        description: "Unstake ticket created successfully! You will receive SOL once the admin processes the queue."
+      });
       
       queryClient.invalidateQueries({ queryKey: ["protocol-stats"] });
       queryClient.invalidateQueries({ queryKey: ["user-stats", publicKey.toBase58()] });
@@ -66,7 +74,7 @@ export function useStaking() {
       
     } catch (err: any) {
       console.error(err);
-      window.alert("Unstaking Failed: " + parseAnchorError(err));
+      toast({ title: "Unstaking Failed", description: parseAnchorError(err) });
     } finally {
       setIsUnstaking(false);
     }

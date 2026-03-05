@@ -21,6 +21,7 @@ import { SolanaProvider } from "@/lib/solana/SolanaProvider";
 import { ProgramProvider } from "@/lib/solana/ProgramProvider";
 import { ReactQueryProvider } from "@/lib/hooks/ReactQueryProvider";
 import { AppLayout } from "@/components/layout/AppLayout";
+import { ToastProvider } from "@/components/ui/ToastProvider";
 
 export default function RootLayout({
   children,
@@ -32,13 +33,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground`}
       >
-        <ReactQueryProvider>
-          <SolanaProvider>
-            <ProgramProvider>
-              <AppLayout>{children}</AppLayout>
-            </ProgramProvider>
-          </SolanaProvider>
-        </ReactQueryProvider>
+        <ToastProvider>
+          <ReactQueryProvider>
+            <SolanaProvider>
+              <ProgramProvider>
+                <AppLayout>{children}</AppLayout>
+              </ProgramProvider>
+            </SolanaProvider>
+          </ReactQueryProvider>
+        </ToastProvider>
       </body>
     </html>
   );
