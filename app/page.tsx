@@ -1,14 +1,37 @@
 "use client";
 
 import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+const WalletMultiButton = dynamic(
+  async () => (await import("@solana/wallet-adapter-react-ui")).WalletMultiButton,
+  { ssr: false }
+);
 import { StakingPanel } from "@/features/staking/StakingPanel";
 import { UnstakeTicketList } from "@/features/unstake/UnstakeTicketList";
 import { ProtocolStatsBar } from "@/features/dashboard/ProtocolStatsBar";
 import { motion } from "framer-motion";
 
+function CustomConnectButton() {
+  const { setVisible } = useWalletModal();
+  return (
+    <button 
+      onClick={() => setVisible(true)}
+      className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-8 rounded-md h-12 inline-flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)]"
+    >
+      Select Wallet
+    </button>
+  );
+}
+
 export default function Dashboard() {
   const { connected } = useWallet();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="flex flex-col gap-12 pb-20 w-full max-w-5xl mx-auto">
@@ -42,12 +65,12 @@ export default function Dashboard() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          {connected ? (
+          {mounted && connected ? (
             <StakingPanel />
           ) : (
             <div className="w-full max-w-md p-12 text-center border border-border/40 rounded-3xl bg-black/40 backdrop-blur-md flex flex-col items-center justify-center space-y-6">
               <div className="p-4 bg-primary/10 rounded-full">
-                <WalletMultiButton className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8" />
+                {mounted && <CustomConnectButton />}
               </div>
               <p className="text-muted-foreground text-sm">Connect your Solana wallet to start staking</p>
             </div>
@@ -60,7 +83,7 @@ export default function Dashboard() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          {connected && <UnstakeTicketList />}
+          {mounted && connected && <UnstakeTicketList />}
           
           <div className="p-6 border border-border/40 rounded-3xl bg-gradient-to-b from-black/0 to-accent/10">
              <h3 className="font-semibold mb-2 flex items-center gap-2">
