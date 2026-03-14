@@ -1,56 +1,81 @@
 "use client";
 
 import { createContext, useContext, useMemo, ReactNode } from "react";
-import { Program, AnchorProvider, setProvider } from "@coral-xyz/anchor";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { PublicKey } from "@solana/web3.js";
+import { Program, AnchorProvider, Idl } from "@coral-xyz/anchor";
+import { useConnection, useAnchorWallet } from "@solana/wallet-adapter-react";
 import { IDL, StakingProgram } from "./idl";
+import { Keypair } from "@solana/web3.js";
 
-// Define the context state
 interface ProgramContextState {
+  connection: any;
+  readOnlyProvider: AnchorProvider | null;
+  writeProvider: AnchorProvider | null;
   program: Program<StakingProgram> | null;
-  provider: AnchorProvider | null;
+  readOnlyProgram: Program<StakingProgram> | null;
 }
 
 const ProgramContext = createContext<ProgramContextState>({
+  connection: null,
+  readOnlyProvider: null,
+  writeProvider: null,
   program: null,
-  provider: null,
+  readOnlyProgram: null,
 });
 
-// Update with your actual deployed program ID
-const PROGRAM_ID = new PublicKey("11111111111111111111111111111111");
+// A dummy wallet is needed for the read-only provider
+const dummyKeypair = Keypair.generate();
+const dummyWallet = {
+  publicKey: dummyKeypair.publicKey,
+  signTransaction: async (tx: any) => tx,
+  signAllTransactions: async (txs: any[]) => txs,
+};
 
 export function ProgramProvider({ children }: { children: ReactNode }) {
   const { connection } = useConnection();
-  const wallet = useWallet();
+  const wallet = useAnchorWallet();
 
-  const { program, provider } = useMemo(() => {
-    // We need the wallet to have an implementation of signTransaction, signAllTransactions, and publicKey
-    // AnchorProvider requires these, but wallet-adapter might not always have them ready.
-    if (!wallet || !wallet.publicKey || !wallet.signTransaction || !wallet.signAllTransactions) {
-      return { program: null, provider: null };
-    }
-
-    const anchorWallet = {
-      publicKey: wallet.publicKey,
-      signTransaction: wallet.signTransaction,
-      signAllTransactions: wallet.signAllTransactions,
-    };
-
-    const provider = new AnchorProvider(connection, anchorWallet, {
-        preflightCommitment: "processed",
+  const { readOnlyProvider, writeProvider, program, readOnlyProgram } =
+    useMemo(() => {
+      // Read-only provider (no wallet)
+      const readOnlyProvider = new AnchorProvider(connection, dummyWallet, {
         commitment: "confirmed",
-    });
+        preflightCommitment: "processed",
+      });
 
-    setProvider(provider);
+      const readOnlyProgram = new Program<StakingProgram>(
+        IDL as Idl as StakingProgram,
+        readOnlyProvider
+      );
 
-    const program = new Program<StakingProgram>(IDL as StakingProgram, provider);
+      // Write provider (requires wallet)
+      if (wallet) {
+        const writeProvider = new AnchorProvider(connection, wallet, {
+          commitment: "confirmed",
+          preflightCommitment: "processed",
+        });
+        const program = new Program<StakingProgram>(IDL as Idl as StakingProgram, writeProvider);
 
-    return { program, provider };
-  }, [connection, wallet]);
+        return { readOnlyProvider, writeProvider, program, readOnlyProgram };
+      }
+
+      return {
+        readOnlyProvider,
+        readOnlyProgram,
+        writeProvider: null,
+        program: null,
+      };
+    }, [connection, wallet]);
 
   return (
-    <ProgramContext.Provider value={{ program, provider }}>
+    <ProgramContext.Provider
+      value={{
+        connection,
+        readOnlyProvider,
+        writeProvider,
+        program,
+        readOnlyProgram,
+      }}
+    >
       {children}
     </ProgramContext.Provider>
   );

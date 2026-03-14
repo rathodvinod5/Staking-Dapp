@@ -65,34 +65,57 @@ export default function Dashboard() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          {mounted && connected ? (
-            <StakingPanel />
-          ) : (
-            <div className="w-full max-w-md p-12 text-center border border-border/40 rounded-3xl bg-black/40 backdrop-blur-md flex flex-col items-center justify-center space-y-6">
-              <div className="p-4 bg-primary/10 rounded-full">
-                {mounted && <CustomConnectButton />}
+           <div className="w-full p-10 text-left border border-border/40 rounded-3xl 
+              bg-black/40 backdrop-blur-md flex flex-col space-y-6 
+              bg-gradient-to-br from-primary/10 via-black/40 to-accent/10"
+            >
+              <h2 className="text-3xl font-bold text-white tracking-tight">Start Staking Today</h2>
+              <p className="text-muted-foreground text-base leading-relaxed">
+                 Join the decentralized network. Secure the protocol and earn yield on your SOL, instantly accessing liquidity across the ecosystem.
+              </p>
+              
+              <div className="pt-4 flex flex-col gap-4">
+                 <a href="/pools" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 rounded-md h-12 inline-flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)] w-full">
+                    View Staking Pools
+                 </a>
+                 {mounted && connected && (
+                   <a href="/portfolio" className="bg-transparent border border-primary text-primary hover:bg-primary/10 font-bold px-8 rounded-md h-12 inline-flex items-center justify-center transition-all w-full">
+                      My Portfolio
+                   </a>
+                 )}
+                 {mounted && !connected && (
+                   <div className="w-full mt-2">
+                     <CustomConnectButton />
+                   </div>
+                 )}
               </div>
-              <p className="text-muted-foreground text-sm">Connect your Solana wallet to start staking</p>
             </div>
-          )}
         </motion.div>
 
         <motion.div 
-          className="lg:col-span-7 w-full space-y-8"
+          className="lg:col-span-7 w-full space-y-6"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          {mounted && connected && <UnstakeTicketList />}
-          
-          <div className="p-6 border border-border/40 rounded-3xl bg-gradient-to-b from-black/0 to-accent/10">
-             <h3 className="font-semibold mb-2 flex items-center gap-2">
-               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-               Program Status: Operational
+          <div className="p-8 border border-border/40 rounded-3xl bg-black/20 flex flex-col gap-4 h-full">
+             <h3 className="text-2xl font-semibold mb-2 flex items-center gap-3">
+               <span className="w-3 h-3 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_2px_rgba(34,197,94,0.6)]" />
+               Network Status: Operational
              </h3>
-             <p className="text-sm text-muted-foreground leading-relaxed">
+             <p className="text-base text-muted-foreground leading-relaxed">
                The Stakely liquidity model processes unstaking claims in batches. If the reserve buffer is sufficient, your claims are fulfilled instantly upon processing. Otherwise, the protocol delegates unbinding from validator nodes at the next epoch boundary.
              </p>
+             <div className="grid grid-cols-2 gap-6 mt-6 pt-6 border-t border-border/40">
+                <div>
+                   <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">Validators</h4>
+                   <p className="text-3xl font-bold text-white">124</p>
+                </div>
+                <div>
+                   <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">Epoch Progress</h4>
+                   <p className="text-3xl font-bold text-white">42%</p>
+                </div>
+             </div>
           </div>
         </motion.div>
       </div>

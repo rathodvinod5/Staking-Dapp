@@ -4,15 +4,31 @@ import { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { Coins, LayoutDashboard } from "lucide-react";
+import { Coins, LayoutDashboard, Wallet } from "lucide-react";
 import { useUIStore } from "@/lib/store/useStore";
 
 function CustomConnectButton() {
   const { setVisible } = useWalletModal();
+  const { publicKey, connected, disconnect } = useWallet();
+
+  console.log("CustomConnectButton: ", publicKey, connected);
+
+  if (connected && publicKey) {
+    return (
+      <button 
+        onClick={() => disconnect()}
+        className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-4 rounded-full h-9 text-sm tracking-tight flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)] group min-w-[130px]"
+      >
+        <span className="group-hover:hidden">{publicKey.toString().slice(0, 4)}...{publicKey.toString().slice(-4)}</span>
+        <span className="hidden group-hover:inline">Disconnect</span>
+      </button>
+    );
+  }
+
   return (
     <button 
       onClick={() => setVisible(true)}
-      className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-4 rounded-full h-9 text-sm tracking-tight inline-flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)]"
+      className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-4 rounded-full h-9 text-sm tracking-tight flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)] min-w-[130px]"
     >
       Select Wallet
     </button>
@@ -49,6 +65,18 @@ export function AppLayout({ children }: { children: ReactNode }) {
               className="text-sm font-medium transition-colors hover:text-primary"
             >
               Dashboard
+            </Link>
+            <Link
+              href="/pools"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
+              Pools
+            </Link>
+            <Link
+              href="/portfolio"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
+              Portfolio
             </Link>
             {mounted && isConnected && (
               <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
