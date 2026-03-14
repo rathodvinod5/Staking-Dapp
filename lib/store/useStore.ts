@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface NetworkState {
+type NetworkState = {
   endpoint: string;
   setEndpoint: (url: string) => void;
   isDevnet: boolean;
   setIsDevnet: (isDevnet: boolean) => void;
 }
 
-interface UIState {
+type UIState = {
   theme: "light" | "dark" | "system";
   setTheme: (theme: "light" | "dark" | "system") => void;
   isAdminMode: boolean;
