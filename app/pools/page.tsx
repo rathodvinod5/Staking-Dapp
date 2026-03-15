@@ -8,7 +8,7 @@ export default function PoolsPage() {
   return (
     <div className="flex flex-col gap-8 pb-20 w-full max-w-5xl mx-auto pt-10">
       <div className="text-center space-y-4 mb-8">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-slate-200 via-slate-200 to-slate-200/40 bg-clip-text text-transparent">
           Staking Pools
         </h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-light">
@@ -31,7 +31,7 @@ export default function PoolsPage() {
               </span>
             </div>
 
-            <h3 className="text-2xl font-bold bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent mb-2">
+            <h3 className="text-2xl font-bold bg-gradient-to-br from-slate-200 to-slate-200/60 bg-clip-text text-transparent mb-2">
               Stakely Core Pool
             </h3>
             <p className="text-muted-foreground text-sm mb-6 flex-1">

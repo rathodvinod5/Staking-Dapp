@@ -36,7 +36,7 @@ export default function PortfolioPage() {
   return (
     <div className="flex flex-col gap-8 pb-20 w-full max-w-5xl mx-auto pt-10">
       <div className="text-left space-y-4 mb-4">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-slate-200 via-slate-200 to-slate-200/40 bg-clip-text text-transparent">
           My Portfolio
         </h1>
         <p className="text-muted-foreground text-lg max-w-2xl font-light">
@@ -75,7 +75,7 @@ export default function PortfolioPage() {
                 Total Staked Balance
               </h3>
               <div className="flex items-end gap-2 mb-2">
-                <span className="text-4xl font-bold font-mono tracking-tighter text-white">
+                <span className="text-4xl font-bold font-mono tracking-tighter text-slate-200">
                   {isLoading
                     ? "---"
                     : formatLamports(userStats?.stakedBalance || 0)}
@@ -100,7 +100,7 @@ export default function PortfolioPage() {
                 Wallet Balance
               </h3>
               <div className="flex items-end gap-2">
-                <span className="text-2xl font-bold font-mono tracking-tighter text-white">
+                <span className="text-2xl font-bold font-mono tracking-tighter text-slate-200">
                   {isLoading
                     ? "---"
                     : formatLamports(userStats?.solBalance || 0)}

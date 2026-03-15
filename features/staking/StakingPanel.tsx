@@ -38,7 +38,7 @@ export function StakingPanel() {
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors duration-700 pointer-events-none" />
 
       <div className="flex flex-col space-y-1.5 p-6">
-        <h3 className="text-2xl font-bold bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
+        <h3 className="text-2xl font-bold bg-gradient-to-br from-slate-200 to-slate-200/60 bg-clip-text text-transparent">
           Liquid Staking
         </h3>
         <p className="text-sm text-muted-foreground">
