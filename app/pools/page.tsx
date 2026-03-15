@@ -24,9 +24,9 @@ export default function PoolsPage() {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
       >
         <Link href={`/pools/stakely-core`}>
-          <div className="group relative rounded-2xl border border-border/50 bg-black/40 backdrop-blur-xl p-6 hover:border-primary/50 transition-all cursor-pointer overflow-hidden h-full flex flex-col">
-            <div className="absolute top-0 right-0 p-4">
-              <span className="bg-green-500/10 text-green-400 text-xs font-bold px-2 py-1 rounded-full border border-green-500/20">Operational</span>
+          <div className="group relative rounded-2xl border border-border/100 bg-black/40 backdrop-blur-xl p-6 pt-10 hover:border-primary/50 transition-all cursor-pointer overflow-hidden h-full flex flex-col">
+            <div className="absolute top-0 right-0 p-2">
+              <span className="bg-green-500/10 text-green-400 text-xs font-bold px-2 py-1 rounded-full border border-green-500/20">Active</span>
             </div>
             
             <h3 className="text-2xl font-bold bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent mb-2">Stakely Core Pool</h3>

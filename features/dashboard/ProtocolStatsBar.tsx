@@ -7,7 +7,7 @@ export function ProtocolStatsBar() {
       <motion.div 
         whileHover={{ y: -5, scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="rounded-xl border bg-black/20 border-border/40 backdrop-blur-md text-card-foreground shadow-sm hover:shadow-primary/10 hover:border-primary/30 transition-colors"
+        className="rounded-xl border bg-black/20 border-border/100 backdrop-blur-md text-card-foreground shadow-sm hover:shadow-primary/10 hover:border-primary/30 transition-colors"
       >
         <div className="flex flex-row items-center justify-between p-6 pb-2">
           <h3 className="text-sm font-medium text-muted-foreground leading-none tracking-tight">Total Staked</h3>
@@ -22,7 +22,7 @@ export function ProtocolStatsBar() {
       <motion.div 
         whileHover={{ y: -5, scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="rounded-xl border bg-black/20 border-border/40 backdrop-blur-md text-card-foreground shadow-sm hover:shadow-green-500/10 hover:border-green-500/30 transition-colors"
+        className="rounded-xl border bg-black/20 border-border/100 backdrop-blur-md text-card-foreground shadow-sm hover:shadow-green-500/10 hover:border-green-500/30 transition-colors"
       >
         <div className="flex flex-row items-center justify-between p-6 pb-2">
           <h3 className="text-sm font-medium text-muted-foreground leading-none tracking-tight">Current APY</h3>
@@ -37,7 +37,7 @@ export function ProtocolStatsBar() {
       <motion.div 
         whileHover={{ y: -5, scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="rounded-xl border bg-black/20 border-border/40 backdrop-blur-md text-card-foreground shadow-sm hover:shadow-orange-500/10 hover:border-orange-500/30 transition-colors"
+        className="rounded-xl border bg-black/20 border-border/100 backdrop-blur-md text-card-foreground shadow-sm hover:shadow-orange-500/10 hover:border-orange-500/30 transition-colors"
       >
         <div className="flex flex-row items-center justify-between p-6 pb-2">
           <h3 className="text-sm font-medium text-muted-foreground leading-none tracking-tight">Reserve Buffer</h3>
@@ -52,7 +52,7 @@ export function ProtocolStatsBar() {
       <motion.div 
         whileHover={{ y: -5, scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="rounded-xl border bg-black/20 border-border/40 backdrop-blur-md text-card-foreground shadow-sm hover:shadow-blue-500/10 hover:border-blue-500/30 transition-colors"
+        className="rounded-xl border bg-black/20 border-border/100 backdrop-blur-md text-card-foreground shadow-sm hover:shadow-blue-500/10 hover:border-blue-500/30 transition-colors"
       >
         <div className="flex flex-row items-center justify-between p-6 pb-2">
           <h3 className="text-sm font-medium text-muted-foreground leading-none tracking-tight">Epoch Progress</h3>
