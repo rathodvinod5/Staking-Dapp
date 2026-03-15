@@ -42,7 +42,7 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-transparent pb-2">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter bg-gradient-to-br from-slate-200 via-slate-200 to-slate-200/40 bg-clip-text text-transparent pb-2">
             Liquid Staking <br /> on Solana
           </h1>
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mt-4 font-light">
@@ -72,7 +72,7 @@ export default function Dashboard() {
               bg-black/40 backdrop-blur-md flex flex-col space-y-6 
               bg-gradient-to-br from-primary/10 via-black/40 to-accent/10"
           >
-            <h2 className="text-3xl font-bold text-white tracking-tight">
+            <h2 className="text-3xl font-bold text-slate-200 tracking-tight">
               Start Staking Today
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -126,13 +126,13 @@ export default function Dashboard() {
                 <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">
                   Validators
                 </h4>
-                <p className="text-3xl font-bold text-white">124</p>
+                <p className="text-3xl font-bold text-slate-200">124</p>
               </div>
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">
                   Epoch Progress
                 </h4>
-                <p className="text-3xl font-bold text-white">42%</p>
+                <p className="text-3xl font-bold text-slate-200">42%</p>
               </div>
             </div>
           </div>

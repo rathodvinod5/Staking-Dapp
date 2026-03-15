@@ -50,7 +50,7 @@ export default function PoolDetailsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-transparent pb-2 capitalize">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-slate-200 via-slate-200 to-slate-200/40 bg-clip-text text-transparent pb-2 capitalize">
               {poolId.toString().replace("-", " ")}
             </h1>
             <p className="text-muted-foreground text-lg mt-2 font-light">
