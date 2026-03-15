@@ -6,6 +6,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { Coins, LayoutDashboard, Wallet } from "lucide-react";
 import { useUIStore } from "@/lib/store/useStore";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 function CustomConnectButton() {
   const { setVisible } = useWalletModal();
@@ -100,6 +101,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
                 Control Panel
               </Link>
             )}
+            {mounted && <ThemeToggle />}
             {mounted && <CustomConnectButton />}
           </nav>
         </div>
