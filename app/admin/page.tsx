@@ -95,7 +95,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-border/50 bg-black/40 backdrop-blur-xl text-card-foreground shadow-sm">
+      <div className="rounded-xl border border-border/80 dark:bg-black/40 bg-white/60 shadow-xl dark:shadow-none backdrop-blur-xl text-card-foreground">
         <div className="flex flex-col space-y-1.5 p-6">
           <h3 className="text-2xl font-semibold leading-none tracking-tight">
             Global Pending Tickets
@@ -114,10 +114,10 @@ export default function AdminDashboard() {
               Queue is empty.
             </div>
           ) : (
-            <div className="rounded-md border border-border/40 overflow-hidden">
+            <div className="rounded-md border border-border/80 overflow-hidden">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-border/40 bg-accent/20 text-left">
+                  <tr className="border-b border-border/60 bg-accent/20 text-left">
                     <th className="p-4 font-medium text-muted-foreground">
                       Ticket ID
                     </th>
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
                   {globalTickets?.map((ticket) => (
                     <tr
                       key={ticket.id}
-                      className="border-b border-border/20 last:border-0 hover:bg-accent/10 transition-colors"
+                      className="border-b border-border/60 last:border-0 hover:bg-accent/10 transition-colors"
                     >
                       <td className="p-4 font-mono text-muted-foreground">
                         {shortenAddress(ticket.id, 4)}

@@ -42,7 +42,7 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter bg-gradient-to-br from-slate-200 via-slate-200 to-slate-200/40 bg-clip-text text-transparent pb-2">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600 dark:from-purple-400 dark:via-pink-300 dark:to-indigo-400 bg-clip-text text-transparent pb-3 animate-gradient">
             Liquid Staking <br /> on Solana
           </h1>
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mt-4 font-light">
@@ -69,10 +69,10 @@ export default function Dashboard() {
         >
           <div
             className="w-full p-10 text-left border border-border/40 rounded-3xl 
-              bg-black/40 backdrop-blur-md flex flex-col space-y-6 
-              bg-gradient-to-br from-primary/10 via-black/40 to-accent/10"
+              dark:bg-black/40 bg-white/60 shadow-xl dark:shadow-none backdrop-blur-md flex flex-col space-y-6 
+              bg-gradient-to-br from-primary/10 dark:via-black/40 via-white/40 to-accent/10"
           >
-            <h2 className="text-3xl font-bold text-slate-200 tracking-tight">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-200 tracking-tight">
               Start Staking Today
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -110,7 +110,7 @@ export default function Dashboard() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <div className="p-8 border border-border/40 rounded-3xl bg-black/20 flex flex-col gap-4 h-full">
+          <div className="p-8 border border-border/40 rounded-3xl dark:bg-black/20 bg-white/60 shadow-xl dark:shadow-none flex flex-col gap-4 h-full">
             <h3 className="text-2xl font-semibold mb-2 flex items-center gap-3">
               <span className="w-3 h-3 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_2px_rgba(34,197,94,0.6)]" />
               Network Status: Operational
@@ -126,13 +126,13 @@ export default function Dashboard() {
                 <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">
                   Validators
                 </h4>
-                <p className="text-3xl font-bold text-slate-200">124</p>
+                <p className="text-3xl font-bold text-slate-900 dark:text-slate-200">124</p>
               </div>
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">
                   Epoch Progress
                 </h4>
-                <p className="text-3xl font-bold text-slate-200">42%</p>
+                <p className="text-3xl font-bold text-slate-900 dark:text-slate-200">42%</p>
               </div>
             </div>
           </div>

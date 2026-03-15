@@ -32,7 +32,7 @@ export function StakingPanel() {
       initial={{ opacity: 0, scale: 0.95, y: 10 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="w-full max-w-md mx-auto rounded-2xl border border-border/50 bg-black/40 backdrop-blur-xl shadow-2xl relative overflow-hidden group"
+      className="w-full max-w-md mx-auto rounded-2xl border border-border/50 dark:bg-black/40 bg-white/80 backdrop-blur-xl shadow-2xl relative overflow-hidden group"
     >
       {/* Decorative gradient orb */}
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors duration-700 pointer-events-none" />

@@ -6,6 +6,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { Coins, LayoutDashboard, Wallet } from "lucide-react";
 import { useUIStore } from "@/lib/store/useStore";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 function CustomConnectButton() {
   const { setVisible } = useWalletModal();
@@ -17,7 +18,7 @@ function CustomConnectButton() {
     return (
       <button
         onClick={() => disconnect()}
-        className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-4 rounded-full h-9 text-sm tracking-tight flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)] group min-w-[130px]"
+        className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-900 dark:text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-4 rounded-full h-9 text-sm tracking-tight flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)] group min-w-[130px]"
       >
         <span className="group-hover:hidden">
           {publicKey.toString().slice(0, 4)}...{publicKey.toString().slice(-4)}
@@ -30,7 +31,7 @@ function CustomConnectButton() {
   return (
     <button
       onClick={() => setVisible(true)}
-      className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-4 rounded-full h-9 text-sm tracking-tight flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)] min-w-[130px]"
+      className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-900 dark:text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-4 rounded-full h-9 text-sm tracking-tight flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)] min-w-[130px]"
     >
       Select Wallet
     </button>
@@ -101,6 +102,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
               </Link>
             )}
             {mounted && <CustomConnectButton />}
+            {mounted && <ThemeToggle />}
           </nav>
         </div>
       </header>
