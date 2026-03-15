@@ -15,18 +15,20 @@ function CustomConnectButton() {
 
   if (connected && publicKey) {
     return (
-      <button 
+      <button
         onClick={() => disconnect()}
         className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-4 rounded-full h-9 text-sm tracking-tight flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)] group min-w-[130px]"
       >
-        <span className="group-hover:hidden">{publicKey.toString().slice(0, 4)}...{publicKey.toString().slice(-4)}</span>
+        <span className="group-hover:hidden">
+          {publicKey.toString().slice(0, 4)}...{publicKey.toString().slice(-4)}
+        </span>
         <span className="hidden group-hover:inline">Disconnect</span>
       </button>
     );
   }
 
   return (
-    <button 
+    <button
       onClick={() => setVisible(true)}
       className="bg-purple-600/20 hover:bg-purple-600/40 text-purple-200 border border-purple-500/50 hover:border-purple-400 font-bold px-4 rounded-full h-9 text-sm tracking-tight flex items-center justify-center transition-all shadow-[0_0_15px_-3px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_-3px_rgba(168,85,247,0.6)] min-w-[130px]"
     >
@@ -102,17 +104,17 @@ export function AppLayout({ children }: { children: ReactNode }) {
           </nav>
         </div>
       </header>
-      
+
       <main className="flex-1 flex flex-col relative w-full items-center">
         {/* Background glow effects */}
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-purple-900/10 blur-[120px] pointer-events-none" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-900/10 blur-[120px] pointer-events-none" />
-        
+
         <div className="w-full max-w-7xl px-4 md:px-8 py-8 z-10 flex flex-col flex-1">
           {children}
         </div>
       </main>
-      
+
       <footer className="py-6 border-t border-border/40">
         <div className="container mx-auto px-4 md:px-8 flex justify-between items-center text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} Stakely. All rights reserved.</p>

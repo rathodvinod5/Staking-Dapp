@@ -23,7 +23,7 @@ export function useProtocolStats() {
       };
     },
     // Only enabled if we have internet basically, program can be null if offline
-    enabled: true, 
+    enabled: true,
   });
 }
 

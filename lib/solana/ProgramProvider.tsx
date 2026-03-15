@@ -6,13 +6,13 @@ import { useConnection, useAnchorWallet } from "@solana/wallet-adapter-react";
 import { IDL, StakingProgram } from "./idl";
 import { Keypair } from "@solana/web3.js";
 
-interface ProgramContextState {
+type ProgramContextState = {
   connection: any;
   readOnlyProvider: AnchorProvider | null;
   writeProvider: AnchorProvider | null;
   program: Program<StakingProgram> | null;
   readOnlyProgram: Program<StakingProgram> | null;
-}
+};
 
 const ProgramContext = createContext<ProgramContextState>({
   connection: null,
@@ -53,7 +53,10 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
           commitment: "confirmed",
           preflightCommitment: "processed",
         });
-        const program = new Program<StakingProgram>(IDL as Idl as StakingProgram, writeProvider);
+        const program = new Program<StakingProgram>(
+          IDL as Idl as StakingProgram,
+          writeProvider
+        );
 
         return { readOnlyProvider, writeProvider, program, readOnlyProgram };
       }

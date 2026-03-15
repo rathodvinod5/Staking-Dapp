@@ -15,8 +15,20 @@ export function useAdmin() {
     queryFn: async () => {
       await new Promise((res) => setTimeout(res, 800));
       return [
-        { id: "tkt123456789abc", amount: 15.5 * 1e9, user: "UserA...3jk2", status: "pending", createdAt: Date.now() - 3600000 },
-        { id: "tkt456789012def", amount: 42.1 * 1e9, user: "UserB...9x1a", status: "pending", createdAt: Date.now() - 7200000 },
+        {
+          id: "tkt123456789abc",
+          amount: 15.5 * 1e9,
+          user: "UserA...3jk2",
+          status: "pending",
+          createdAt: Date.now() - 3600000,
+        },
+        {
+          id: "tkt456789012def",
+          amount: 42.1 * 1e9,
+          user: "UserB...9x1a",
+          status: "pending",
+          createdAt: Date.now() - 7200000,
+        },
       ];
     },
     enabled: true,
@@ -25,10 +37,10 @@ export function useAdmin() {
   const processTicket = async (ticketId: string) => {
     try {
       setIsProcessing(true);
-      
+
       // Mock admin processing
       await new Promise((res) => setTimeout(res, 2000));
-      
+
       window.alert(`Ticket ${ticketId} processed successfully! Sent to user.`);
       queryClient.invalidateQueries({ queryKey: ["admin-tickets"] });
       queryClient.invalidateQueries({ queryKey: ["protocol-stats"] });
@@ -43,9 +55,9 @@ export function useAdmin() {
   const processBatch = async () => {
     try {
       setIsProcessing(true);
-      
+
       await new Promise((res) => setTimeout(res, 3000));
-      
+
       window.alert("Successfully processed batched unstakes");
       queryClient.invalidateQueries({ queryKey: ["admin-tickets"] });
     } catch (err: any) {
@@ -60,6 +72,6 @@ export function useAdmin() {
     isLoadingTickets,
     processTicket,
     processBatch,
-    isProcessing
+    isProcessing,
   };
 }
