@@ -44,7 +44,7 @@ export function UnstakeTicketList() {
   if (!publicKey) return null;
 
   return (
-    <div className="rounded-xl border border-border/50 bg-black/40 backdrop-blur-xl text-card-foreground shadow-sm">
+    <div className="rounded-xl border border-border/80 dark:bg-black/40 bg-white/60 backdrop-blur-xl text-card-foreground shadow-xl dark:shadow-none">
       <div className="flex flex-col space-y-1.5 p-6">
         <h3 className="text-2xl font-semibold leading-none tracking-tight">
           Your Unstake Tickets

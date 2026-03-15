@@ -36,7 +36,7 @@ export default function PortfolioPage() {
   return (
     <div className="flex flex-col gap-8 pb-20 w-full max-w-5xl mx-auto pt-10">
       <div className="text-left space-y-4 mb-4">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-slate-200 via-slate-200 to-slate-200/40 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600 dark:from-purple-400 dark:via-pink-300 dark:to-indigo-400 bg-clip-text text-transparent pb-2 animate-gradient">
           My Portfolio
         </h1>
         <p className="text-muted-foreground text-lg max-w-2xl font-light">
@@ -47,7 +47,7 @@ export default function PortfolioPage() {
       {!connected ? (
         <div
           className="w-full p-12 text-center border border-border/40 rounded-3xl 
-          bg-black/40 backdrop-blur-md flex flex-col items-center justify-center space-y-6 
+          dark:bg-black/40 bg-white/60 backdrop-blur-md shadow-xl dark:shadow-none flex flex-col items-center justify-center space-y-6 
           bg-gradient-to-b from-black/0 to-accent/10 mt-8"
         >
           <Wallet className="w-16 h-16 text-muted-foreground/50 mb-4" />
@@ -68,14 +68,14 @@ export default function PortfolioPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
           >
-            <div className="p-6 border border-border/40 rounded-3xl bg-black/40 backdrop-blur-md relative overflow-hidden group">
+            <div className="p-6 border border-border/80 rounded-3xl dark:bg-black/40 bg-white/60 shadow-xl dark:shadow-none backdrop-blur-md relative overflow-hidden group">
               <div className="absolute -top-12 -right-12 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors pointer-events-none" />
 
               <h3 className="font-semibold text-muted-foreground mb-4 text-sm uppercase tracking-wider">
                 Total Staked Balance
               </h3>
               <div className="flex items-end gap-2 mb-2">
-                <span className="text-4xl font-bold font-mono tracking-tighter text-slate-200">
+                <span className="text-4xl font-bold font-mono tracking-tighter text-slate-900 dark:text-slate-200">
                   {isLoading
                     ? "---"
                     : formatLamports(userStats?.stakedBalance || 0)}
@@ -100,7 +100,7 @@ export default function PortfolioPage() {
                 Wallet Balance
               </h3>
               <div className="flex items-end gap-2">
-                <span className="text-2xl font-bold font-mono tracking-tighter text-slate-200">
+                <span className="text-2xl font-bold font-mono tracking-tighter text-slate-900 dark:text-slate-200">
                   {isLoading
                     ? "---"
                     : formatLamports(userStats?.solBalance || 0)}
@@ -120,7 +120,7 @@ export default function PortfolioPage() {
               </div>
             </div>
 
-            <div className="p-4 border border-border/40 rounded-xl bg-accent/20 flex items-center justify-between text-sm">
+            <div className="p-4 border border-border/80 rounded-xl bg-accent/20 flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Connected Address</span>
               <span className="font-mono text-xs">
                 {publicKey?.toString().slice(0, 4)}...

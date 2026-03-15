@@ -104,7 +104,7 @@ export default function PoolDetailsPage() {
           ) : (
             <div
               className="w-full p-10 text-center border border-border/40 rounded-3xl 
-              bg-black/40 backdrop-blur-md flex flex-col items-center justify-center space-y-6 
+              dark:bg-black/40 bg-white/60 shadow-xl dark:shadow-none backdrop-blur-md flex flex-col items-center justify-center space-y-6 
               bg-gradient-to-b from-black/0 to-accent/10 h-full min-h-[400px]"
             >
               <div className="">{mounted && <CustomConnectButton />}</div>
