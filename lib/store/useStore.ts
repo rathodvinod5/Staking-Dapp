@@ -6,14 +6,14 @@ type NetworkState = {
   setEndpoint: (url: string) => void;
   isDevnet: boolean;
   setIsDevnet: (isDevnet: boolean) => void;
-}
+};
 
 type UIState = {
   theme: "light" | "dark" | "system";
   setTheme: (theme: "light" | "dark" | "system") => void;
   isAdminMode: boolean;
   setIsAdminMode: (isAdmin: boolean) => void;
-}
+};
 
 export const useNetworkStore = create<NetworkState>()(
   persist(

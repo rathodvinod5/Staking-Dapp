@@ -53,7 +53,10 @@ export function ProgramProvider({ children }: { children: ReactNode }) {
           commitment: "confirmed",
           preflightCommitment: "processed",
         });
-        const program = new Program<StakingProgram>(IDL as Idl as StakingProgram, writeProvider);
+        const program = new Program<StakingProgram>(
+          IDL as Idl as StakingProgram,
+          writeProvider
+        );
 
         return { readOnlyProvider, writeProvider, program, readOnlyProgram };
       }

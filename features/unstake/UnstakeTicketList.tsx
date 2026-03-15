@@ -22,7 +22,7 @@ export function UnstakeTicketList() {
       // Mock fetch
       await new Promise((res) => setTimeout(res, 800));
       if (!publicKey) return [];
-      
+
       return [
         {
           id: "tkt123456789abc",
@@ -35,7 +35,7 @@ export function UnstakeTicketList() {
           amount: 2.1 * 1e9,
           status: "completed",
           createdAt: Date.now() - 1000 * 60 * 60 * 48, // 48 hours ago
-        }
+        },
       ];
     },
     enabled: !!publicKey,
@@ -46,46 +46,60 @@ export function UnstakeTicketList() {
   return (
     <div className="rounded-xl border border-border/50 bg-black/40 backdrop-blur-xl text-card-foreground shadow-sm">
       <div className="flex flex-col space-y-1.5 p-6">
-        <h3 className="text-2xl font-semibold leading-none tracking-tight">Your Unstake Tickets</h3>
-        <p className="text-sm text-muted-foreground">Withdraw claims waiting for admin processing.</p>
+        <h3 className="text-2xl font-semibold leading-none tracking-tight">
+          Your Unstake Tickets
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          Withdraw claims waiting for admin processing.
+        </p>
       </div>
       <div className="p-6 pt-0">
         {isLoading ? (
-          <div className="flex justify-center p-8 text-muted-foreground animate-pulse">Loading tickets...</div>
+          <div className="flex justify-center p-8 text-muted-foreground animate-pulse">
+            Loading tickets...
+          </div>
         ) : tickets?.length === 0 ? (
           <div className="text-center p-8 text-muted-foreground border border-dashed rounded-lg border-border/50">
             No active unstake tickets.
           </div>
         ) : (
           <div className="relative overflow-auto h-[250px] pr-4">
-            <motion.div 
+            <motion.div
               variants={{
                 hidden: { opacity: 0 },
                 show: {
                   opacity: 1,
                   transition: {
-                    staggerChildren: 0.1
-                  }
-                }
+                    staggerChildren: 0.1,
+                  },
+                },
               }}
               initial="hidden"
               animate="show"
               className="space-y-4"
             >
               {tickets?.map((ticket) => (
-                <motion.div 
-                  key={ticket.id} 
+                <motion.div
+                  key={ticket.id}
                   variants={{
                     hidden: { opacity: 0, y: 10 },
-                    show: { opacity: 1, y: 0 }
+                    show: { opacity: 1, y: 0 },
                   }}
-                  whileHover={{ scale: 1.01, backgroundColor: "rgba(255,255,255,0.05)" }}
+                  whileHover={{
+                    scale: 1.01,
+                    backgroundColor: "rgba(255,255,255,0.05)",
+                  }}
                   className="flex items-center justify-between p-4 rounded-lg bg-accent/30 border border-border/30 transition-colors"
                 >
                   <div className="space-y-1">
-                    <div className="font-mono font-medium">{formatLamports(ticket.amount)} SOL</div>
+                    <div className="font-mono font-medium">
+                      {formatLamports(ticket.amount)} SOL
+                    </div>
                     <div className="text-xs text-muted-foreground">
-                      {shortenAddress(ticket.id, 6)} • {formatDistanceToNow(ticket.createdAt, { addSuffix: true })}
+                      {shortenAddress(ticket.id, 6)} •{" "}
+                      {formatDistanceToNow(ticket.createdAt, {
+                        addSuffix: true,
+                      })}
                     </div>
                   </div>
                   <div>

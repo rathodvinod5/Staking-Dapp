@@ -17,7 +17,10 @@ export function useStaking() {
 
   const deposit = async (amountLamports: number) => {
     if (!program || !publicKey) {
-      toast({ title: "Error", description: "Please connect your wallet first." });
+      toast({
+        title: "Error",
+        description: "Please connect your wallet first.",
+      });
       return;
     }
 
@@ -25,22 +28,23 @@ export function useStaking() {
       setIsStaking(true);
       // Mock logic: in reality we would fetch the PDA for the pool
       // const poolPda = PublicKey.findProgramAddressSync([...], program.programId)[0];
-      
+
       // toast.loading("Simulating deposit...", { id: "deposit" });
 
       // Simulate a contract call explicitly for the frontend demo
       // Due to dummy IDL we'll just mock a 2 second delay as a successful tx
       await new Promise((res) => setTimeout(res, 2000));
-      
-      toast({ 
-        title: "Success", 
-        description: `Successfully deposited ${(amountLamports / 1e9).toFixed(2)} SOL` 
+
+      toast({
+        title: "Success",
+        description: `Successfully deposited ${(amountLamports / 1e9).toFixed(2)} SOL`,
       });
-      
+
       // Invalidate queries to refresh dashboard data
       queryClient.invalidateQueries({ queryKey: ["protocol-stats"] });
-      queryClient.invalidateQueries({ queryKey: ["user-stats", publicKey.toBase58()] });
-      
+      queryClient.invalidateQueries({
+        queryKey: ["user-stats", publicKey.toBase58()],
+      });
     } catch (err: any) {
       console.error(err);
       toast({ title: "Staking Failed", description: parseAnchorError(err) });
@@ -51,27 +55,34 @@ export function useStaking() {
 
   const unstake = async (amountLamports: number) => {
     if (!program || !publicKey) {
-      toast({ title: "Error", description: "Please connect your wallet first." });
+      toast({
+        title: "Error",
+        description: "Please connect your wallet first.",
+      });
       return;
     }
 
     try {
       setIsUnstaking(true);
-      
+
       // toast.loading("Creating Unstake Ticket...", { id: "unstake" }); // Removed as per instruction to replace toast with alert
 
       // Mock contract unstake ticket creation
       await new Promise((res) => setTimeout(res, 2000));
-      
+
       toast({
         title: "Unstaked Successfully",
-        description: "Unstake ticket created successfully! You will receive SOL once the admin processes the queue."
+        description:
+          "Unstake ticket created successfully! You will receive SOL once the admin processes the queue.",
       });
-      
+
       queryClient.invalidateQueries({ queryKey: ["protocol-stats"] });
-      queryClient.invalidateQueries({ queryKey: ["user-stats", publicKey.toBase58()] });
-      queryClient.invalidateQueries({ queryKey: ["user-tickets", publicKey.toBase58()] });
-      
+      queryClient.invalidateQueries({
+        queryKey: ["user-stats", publicKey.toBase58()],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-tickets", publicKey.toBase58()],
+      });
     } catch (err: any) {
       console.error(err);
       toast({ title: "Unstaking Failed", description: parseAnchorError(err) });
