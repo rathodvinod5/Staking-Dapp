@@ -23,7 +23,10 @@ export function parseAnchorError(error: any): string {
 }
 
 export function formatLamports(lamports: number, decimals: number = 9): string {
-  return (lamports / Math.pow(10, decimals)).toFixed(2);
+  const value = lamports / Math.pow(10, decimals);
+  return new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: decimals,
+  }).format(value);
 }
 
 export function shortenAddress(

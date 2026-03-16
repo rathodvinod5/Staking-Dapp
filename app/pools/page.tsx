@@ -50,13 +50,17 @@ export default function PoolsPage() {
 
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border/40">
                   <div>
-                    <p className="text-xs text-muted-foreground">Estimated APY</p>
+                    <p className="text-xs text-muted-foreground">
+                      Estimated APY
+                    </p>
                     <p className="font-mono font-medium text-green-400">
                       {pool.apy}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground">Exchange Rate</p>
+                    <p className="text-xs text-muted-foreground">
+                      Exchange Rate
+                    </p>
                     <p className="font-mono font-medium">{pool.exchangeRate}</p>
                   </div>
                 </div>

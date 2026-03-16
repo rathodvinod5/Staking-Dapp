@@ -93,7 +93,9 @@ export default function PoolDetailsPage() {
                   Validation Strategy
                 </span>
                 <span className="text-foreground">
-                  {isLoading ? "..." : pool?.strategy || "Algorithmic Delegation"}
+                  {isLoading
+                    ? "..."
+                    : pool?.strategy || "Algorithmic Delegation"}
                 </span>
               </li>
               <li className="flex justify-between items-center pb-2">

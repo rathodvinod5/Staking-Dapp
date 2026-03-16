@@ -69,7 +69,7 @@ export function usePools() {
 
 export function usePool(id: string) {
   const { data: pools, isLoading } = usePools();
-  
+
   return {
     data: pools?.find((pool) => pool.id === id),
     isLoading,
