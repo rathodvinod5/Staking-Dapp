@@ -5,9 +5,10 @@ import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
 import { StakingPanel } from "@/features/staking/StakingPanel";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { usePool } from "@/features/pools/usePools";
 
 function CustomConnectButton() {
   const { setVisible } = useWalletModal();
@@ -27,6 +28,7 @@ export default function PoolDetailsPage() {
   const params = useParams();
 
   const poolId = params?.id || "pool";
+  const { data: pool, isLoading } = usePool(poolId as string);
 
   useEffect(() => {
     setMounted(true);
@@ -51,10 +53,17 @@ export default function PoolDetailsPage() {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-slate-200 via-slate-200 to-slate-200/40 bg-clip-text text-transparent pb-2 capitalize">
-              {poolId.toString().replace("-", " ")}
+              {isLoading ? (
+                <Loader2 className="w-8 h-8 animate-spin" />
+              ) : (
+                pool?.name || poolId.toString().replace(/-/g, " ")
+              )}
             </h1>
             <p className="text-muted-foreground text-lg mt-2 font-light">
-              Stake your SOL in this specific pool to mint LSTs directly.
+              {isLoading
+                ? "Loading pool details..."
+                : pool?.description ||
+                  "Stake your SOL in this specific pool to mint LSTs directly."}
             </p>
           </motion.div>
 
@@ -70,24 +79,30 @@ export default function PoolDetailsPage() {
                 <span className="text-muted-foreground">Status</span>
                 <span className="text-green-400 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  Operational
+                  {isLoading ? "..." : pool?.status || "Operational"}
                 </span>
               </li>
               <li className="flex justify-between items-center border-b border-border/20 pb-2">
                 <span className="text-muted-foreground">Estimated APY</span>
                 <span className="font-mono font-medium text-green-400">
-                  ~7.2%
+                  {isLoading ? "..." : pool?.apy || "~7.2%"}
                 </span>
               </li>
               <li className="flex justify-between items-center border-b border-border/20 pb-2">
                 <span className="text-muted-foreground">
                   Validation Strategy
                 </span>
-                <span className="text-foreground">Algorithmic Delegation</span>
+                <span className="text-foreground">
+                  {isLoading
+                    ? "..."
+                    : pool?.strategy || "Algorithmic Delegation"}
+                </span>
               </li>
               <li className="flex justify-between items-center pb-2">
                 <span className="text-muted-foreground">Fee</span>
-                <span className="text-foreground">0% Deposit / 5% Reward</span>
+                <span className="text-foreground">
+                  {isLoading ? "..." : pool?.fee || "0% Deposit / 5% Reward"}
+                </span>
               </li>
             </ul>
           </motion.div>

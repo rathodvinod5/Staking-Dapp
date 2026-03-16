@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { useProgram } from "@/lib/solana/ProgramProvider";
 
 export function useProtocolStats() {
@@ -29,17 +29,18 @@ export function useProtocolStats() {
 
 export function useUserStats() {
   const { publicKey } = useWallet();
+  const { connection } = useConnection();
 
   return useQuery({
     queryKey: ["user-stats", publicKey?.toBase58()],
     queryFn: async () => {
-      await new Promise((res) => setTimeout(res, 600));
-
       if (!publicKey) return null;
+
+      const solBalance = await connection.getBalance(publicKey);
 
       return {
         stakedBalance: 145.2 * 1e9, // mock LST
-        solBalance: 12.4 * 1e9, // mock SOL balance
+        solBalance, // actual SOL balance
       };
     },
     enabled: !!publicKey,

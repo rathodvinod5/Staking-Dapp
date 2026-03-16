@@ -120,7 +120,7 @@ export default function PortfolioPage() {
               </div>
             </div>
 
-            <div className="p-4 border border-border/80 rounded-xl bg-accent/20 flex items-center justify-between text-sm">
+            <div className="p-4 border border-border/40 rounded-xl bg-accent/20 flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Connected Address</span>
               <span className="font-mono text-xs">
                 {publicKey?.toString().slice(0, 4)}...

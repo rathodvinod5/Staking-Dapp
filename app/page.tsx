@@ -126,13 +126,17 @@ export default function Dashboard() {
                 <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">
                   Validators
                 </h4>
-                <p className="text-3xl font-bold text-slate-900 dark:text-slate-200">124</p>
+                <p className="text-3xl font-bold text-slate-900 dark:text-slate-200">
+                  124
+                </p>
               </div>
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">
                   Epoch Progress
                 </h4>
-                <p className="text-3xl font-bold text-slate-900 dark:text-slate-200">42%</p>
+                <p className="text-3xl font-bold text-slate-900 dark:text-slate-200">
+                  42%
+                </p>
               </div>
             </div>
           </div>
