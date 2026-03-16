@@ -101,9 +101,18 @@ export function StakingPanel() {
                   <div className="relative">
                     <input
                       type="number"
+                      min={"0.00"}
                       placeholder="0.00"
                       value={stakeAmount}
-                      onChange={(e) => setStakeAmount(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "-") e.preventDefault();
+                      }}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (!val.includes("-") && Number(val) >= 0) {
+                          setStakeAmount(val);
+                        }
+                      }}
                       className="flex h-20 w-full rounded-md border pl-4 pr-16 py-6 text-xl bg-background/50 border-input font-mono ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                     <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
@@ -167,9 +176,18 @@ export function StakingPanel() {
                   <div className="relative">
                     <input
                       type="number"
+                      min={"0.00"}
                       placeholder="0.00"
                       value={unstakeAmount}
-                      onChange={(e) => setUnstakeAmount(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "-") e.preventDefault();
+                      }}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (!val.includes("-") && Number(val) >= 0) {
+                          setUnstakeAmount(val);
+                        }
+                      }}
                       className="flex h-20 w-full rounded-md border pl-4 pr-16 py-6 text-xl bg-background/50 border-input font-mono ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                     <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
