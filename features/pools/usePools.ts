@@ -61,7 +61,7 @@ export function usePools() {
       // return pools.map(p => parsePool(p));
 
       // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 5000));
       return ACTIVE_POOLS_MOCK;
     },
   });

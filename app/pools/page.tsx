@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ProtocolStatsBar } from "@/features/dashboard/ProtocolStatsBar";
 import { usePools } from "@/features/pools/usePools";
-import { Loader2 } from "lucide-react";
+import { Loader } from "@/components/Loader";
 
 export default function PoolsPage() {
   const { data: pools, isLoading } = usePools();
@@ -29,7 +29,7 @@ export default function PoolsPage() {
       >
         {isLoading ? (
           <div className="col-span-full py-20 flex justify-center items-center">
-            <Loader2 className="w-10 h-10 animate-spin text-primary" />
+            <Loader />
           </div>
         ) : (
           pools?.map((pool) => (
@@ -76,13 +76,15 @@ export default function PoolsPage() {
         )}
 
         {/* Placeholder for future pools */}
-        <div className="rounded-2xl border border-border/20 dark:bg-black/20 bg-white/60 shadow-xl dark:shadow-none backdrop-blur-xl p-6 flex flex-col items-center justify-center min-h-[250px] opacity-60">
-          <p className="text-muted-foreground font-medium">Coming Soon</p>
-          <p className="text-sm text-muted-foreground/60 text-center mt-2">
-            More liquidity pools and validator strategies will be available
-            here.
-          </p>
-        </div>
+        {!isLoading ? (
+          <div className="rounded-2xl border border-border/20 dark:bg-black/20 bg-white/60 shadow-xl dark:shadow-none backdrop-blur-xl p-6 flex flex-col items-center justify-center min-h-[250px] opacity-60">
+            <p className="text-muted-foreground font-medium">Coming Soon</p>
+            <p className="text-sm text-muted-foreground/60 text-center mt-2">
+              More liquidity pools and validator strategies will be available
+              here.
+            </p>
+          </div>
+        ) : null}
       </motion.div>
     </div>
   );
