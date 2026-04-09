@@ -73,10 +73,6 @@ export function useStaking() {
             stakeAccount: publicKey, // Assuming direct delegation 
             lstMint: lstMintPubkey,
             userAta: userAtaPda,
-            stakeEntry: stakeEntryPda,
-            systemProgram: SystemProgram.programId,
-            tokenProgram: TOKEN_PROGRAM_ID,
-            rent: SYSVAR_RENT_PUBKEY,
           })
           .rpc();
       } catch (txError) {
@@ -150,13 +146,7 @@ export function useStaking() {
           .requestUnstake()
           .accounts({
             user: publicKey,
-            userTokenAta: userTokenAtaPda,
-            pool: poolPubkey,
-            lstMint: lstMintPubkey,
             stakeEntry: stakeEntryPda,
-            unstakeTicket: unstakeTicketPda,
-            systemProgram: SystemProgram.programId,
-            tokenProgram: TOKEN_PROGRAM_ID,
           })
           .rpc();
       } catch (txError) {
