@@ -89,3 +89,11 @@ export default function PoolsPage() {
     </div>
   );
 }
+
+
+// I mean applying the glowing effect to entire page background
+// ```
+// Adding a subtle animated background behind the pages itself (like a slow-moving gradient mesh, glowing orbs, or a subtle radial glow behind the pages) to complement the Web3 aesthetic - Yes
+// ```
+
+// and make sure it add this styling currently to only one page ie, / route - homepage, later we will go with the other pages
