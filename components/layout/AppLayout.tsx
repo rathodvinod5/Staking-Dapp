@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { Coins, LayoutDashboard, Wallet } from "lucide-react";
+import { Coins, LayoutDashboard, Wallet, Menu, X } from "lucide-react";
 import { useUIStore } from "@/lib/store/useStore";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -42,27 +42,43 @@ export function AppLayout({ children }: { children: ReactNode }) {
   const { publicKey } = useWallet();
   const { isAdminMode, setIsAdminMode } = useUIStore();
   const [mounted, setMounted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
   // In a real app we'd verify this against an environment variable or on-chain config
   // For now we allow toggle if connected
   const isConnected = !!publicKey;
+
+  const closeMenu = () => setIsMobileMenuOpen(false);
 
   return (
     <div className="flex flex-col min-h-screen">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center px-4 md:px-8 mx-auto justify-between max-w-7xl">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
             <Coins className="h-6 w-6 text-primary drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
             <span className="font-bold tracking-tight text-xl hidden sm:inline-block">
               Stakely
             </span>
           </Link>
 
-          <nav className="flex items-center gap-6">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6">
             <Link
               href="/"
               className="text-sm font-medium transition-colors hover:text-primary"
@@ -104,8 +120,98 @@ export function AppLayout({ children }: { children: ReactNode }) {
             {mounted && <CustomConnectButton />}
             {mounted && <ThemeToggle />}
           </nav>
+
+          {/* Mobile Header Elements */}
+          <div className="flex md:hidden items-center gap-3">
+            {mounted && <CustomConnectButton />}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-2 -mr-2 text-foreground hover:bg-accent rounded-md transition-colors"
+              aria-label="Open Menu"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
         </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+          onClick={closeMenu}
+        />
+      )}
+
+      {/* Mobile Menu Panel */}
+      <div
+        className={`fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-background border-l border-border/40 shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden flex flex-col ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between p-4 border-b border-border/40 min-h-[64px]">
+          <span className="font-bold tracking-tight text-xl">Menu</span>
+          <button
+            onClick={closeMenu}
+            className="p-2 -mr-2 text-foreground hover:bg-accent rounded-md transition-colors"
+            aria-label="Close Menu"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+
+        <div className="flex flex-col p-6 gap-6 overflow-y-auto">
+          <Link
+            href="/"
+            onClick={closeMenu}
+            className="text-lg font-medium transition-colors hover:text-primary"
+          >
+            Dashboard
+          </Link>
+          <Link
+            href="/pools"
+            onClick={closeMenu}
+            className="text-lg font-medium transition-colors hover:text-primary"
+          >
+            Pools
+          </Link>
+          <Link
+            href="/portfolio"
+            onClick={closeMenu}
+            className="text-lg font-medium transition-colors hover:text-primary"
+          >
+            Portfolio
+          </Link>
+          
+          {mounted && isConnected && (
+            <label className="flex items-center gap-3 text-lg text-muted-foreground cursor-pointer pt-4 border-t border-border/40">
+              <input
+                type="checkbox"
+                checked={isAdminMode}
+                onChange={(e) => setIsAdminMode(e.target.checked)}
+                className="rounded bg-accent w-5 h-5 flex-shrink-0"
+              />
+              Admin Mode
+            </label>
+          )}
+          
+          {mounted && isAdminMode && (
+            <Link
+              href="/admin"
+              onClick={closeMenu}
+              className="text-lg font-medium transition-colors hover:text-primary flex items-center gap-2 text-purple-400"
+            >
+              <LayoutDashboard className="w-5 h-5" />
+              Control Panel
+            </Link>
+          )}
+
+          <div className="pt-4 mt-auto border-t border-border/40 flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">Theme</span>
+            {mounted && <ThemeToggle />}
+          </div>
+        </div>
+      </div>
 
       <main className="flex-1 flex flex-col relative w-full items-center">
         {/* Background glow effects */}

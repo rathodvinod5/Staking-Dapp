@@ -41,7 +41,7 @@ export default function PoolsPage() {
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-bold bg-gradient-to-br from-slate-900 to-slate-600 dark:from-slate-200 dark:to-slate-200/60 bg-clip-text text-transparent mb-2">
+                <h3 className="text-2xl font-bold bg-gradient-to-br from-slate-700 to-slate-500 dark:from-slate-200 dark:to-slate-200/60 bg-clip-text text-transparent mb-2">
                   {pool.name}
                 </h3>
                 <p className="text-muted-foreground text-sm mb-6 flex-1">

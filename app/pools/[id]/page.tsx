@@ -52,7 +52,7 @@ export default function PoolDetailsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-slate-200 via-slate-200 to-slate-200/40 bg-clip-text text-transparent pb-2 capitalize">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter bg-gradient-to-br from-slate-700 via-slate-600 to-slate-500 dark:from-slate-200 dark:via-slate-200 dark:to-slate-200/40 bg-clip-text text-transparent pb-2 capitalize">
               {isLoading ? (
                 <Loader2 className="w-8 h-8 animate-spin" />
               ) : (
@@ -73,7 +73,7 @@ export default function PoolDetailsPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <h3 className="font-semibold mb-4 text-xl">Pool Information</h3>
+            <h3 className="font-bold mb-4 text-2xl bg-gradient-to-br from-slate-700 to-slate-500 dark:from-slate-200 dark:to-slate-200/60 bg-clip-text text-transparent">Pool Information</h3>
             <ul className="space-y-4 text-sm">
               <li className="flex justify-between items-center border-b border-border/20 pb-2">
                 <span className="text-muted-foreground">Status</span>
